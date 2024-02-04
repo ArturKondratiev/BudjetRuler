@@ -11,6 +11,7 @@ import {
 import { useCallback, useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 
+import CostsList from '../CostsList/CostsList';
 import { styles } from '../styles';
 
 export default function Main() {
@@ -43,7 +44,7 @@ export default function Main() {
   return (
     <View style={styles.container}>
       <Center>
-        <Box h="$32" w="$72">
+        <Box h="$32" w="$full">
           <FormControl size="md">
             <FormControlLabel mb="$1">
               <FormControlLabelText>Your current budjet: {budjet || 0}</FormControlLabelText>
@@ -57,11 +58,12 @@ export default function Main() {
             </Input>
 
             <FormControlLabel mb="$1">
-              <FormControlLabelText>50% ({firstPartBudjet})</FormControlLabelText>
+              <FormControlLabelText>50% asdasdasdasdas({firstPartBudjet})</FormControlLabelText>
             </FormControlLabel>
             <Input w="$32">
               <InputField placeholder="50%" />
             </Input>
+            <CostsList />
 
             <FormControlLabel mb="$1">
               <FormControlLabelText>30% ({secondPartBudjet})</FormControlLabelText>
