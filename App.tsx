@@ -1,12 +1,13 @@
-import { NativeBaseProvider } from 'native-base';
-import React from 'react';
+import { config } from '@gluestack-ui/config';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 
-import Test from '~/components/Test';
+import { Header, Main } from '~/components';
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Test />
-    </NativeBaseProvider>
+    <GluestackUIProvider config={config}>
+      <Header />
+      <Main />
+    </GluestackUIProvider>
   );
 }
