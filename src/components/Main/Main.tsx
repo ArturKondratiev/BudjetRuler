@@ -1,41 +1,81 @@
 import {
-  AlertCircleIcon,
   Box,
   Center,
   FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlHelper,
-  FormControlHelperText,
   FormControlLabel,
   FormControlLabelText,
   Input,
   InputField,
   View,
 } from '@gluestack-ui/themed';
+import { useCallback, useState } from 'react';
+import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 export default function Main() {
+  const [budjet, setBudjet] = useState('');
+  const [firstPartBudjet, setFirstPartBudjet] = useState('');
+  const [secondPartBudjet, setSecondPartBudjet] = useState('');
+  const [thirdPartBudjet, setThirdPartBudjet] = useState('');
+
+  let splitedBudjet: {
+    budjetValue: string;
+    firstPartBudjetValue: number;
+    secondPartBudjetValue: number;
+    thirdPartBudjetValue: number;
+  };
+  const handleBudjet = useCallback((e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    const budjetValue = e.nativeEvent.text;
+    splitedBudjet = {
+      budjetValue,
+      firstPartBudjetValue: +budjetValue * 0.5,
+      secondPartBudjetValue: +budjetValue * 0.3,
+      thirdPartBudjetValue: +budjetValue * 0.2,
+    };
+    setBudjet(splitedBudjet.budjetValue);
+    setFirstPartBudjet(splitedBudjet.firstPartBudjetValue.toString());
+    setSecondPartBudjet(splitedBudjet.secondPartBudjetValue.toString());
+    setThirdPartBudjet(splitedBudjet.thirdPartBudjetValue.toString());
+    return splitedBudjet;
+  }, []);
+
   return (
     <View style={styles.container}>
       <Center>
         <Box h="$32" w="$72">
           <FormControl size="md">
             <FormControlLabel mb="$1">
-              <FormControlLabelText>Password</FormControlLabelText>
+              <FormControlLabelText>Your current budjet: {budjet || 0}</FormControlLabelText>
             </FormControlLabel>
-            <Input>
-              <InputField type="password" placeholder="password" />
+            <Input w="$32">
+              <InputField
+                placeholder="Enter budjet"
+                keyboardType="numeric"
+                onChange={handleBudjet}
+              />
             </Input>
-            <FormControlHelper>
-              <FormControlHelperText>Must be at least 6 characters.</FormControlHelperText>
-            </FormControlHelper>
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} />
-              <FormControlErrorText>At least 6 characters are required.</FormControlErrorText>
-            </FormControlError>
+
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>50% ({firstPartBudjet})</FormControlLabelText>
+            </FormControlLabel>
+            <Input w="$32">
+              <InputField placeholder="50%" />
+            </Input>
+
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>30% ({secondPartBudjet})</FormControlLabelText>
+            </FormControlLabel>
+            <Input w="$32">
+              <InputField placeholder="30%" />
+            </Input>
+
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>20% ({thirdPartBudjet})</FormControlLabelText>
+            </FormControlLabel>
+            <Input w="$32">
+              <InputField placeholder="20%" />
+            </Input>
           </FormControl>
         </Box>
       </Center>

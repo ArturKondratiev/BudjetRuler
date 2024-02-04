@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
     paddingHorizontal: 12,
-    marginTop: 50,
     borderRadius: 5,
     alignSelf: 'center',
     width: 375,
